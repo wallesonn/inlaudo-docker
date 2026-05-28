@@ -1,0 +1,7 @@
+services:
+  inlaudo-web:
+    image: ${DOCKER_IMAGE:-wallesonnn/inlaudo}:latest
+    container_name: inlaudo-web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
