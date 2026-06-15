@@ -1,8 +1,11 @@
 services:
   inlaudo-web:
-    image: ${DOCKER_IMAGE:-wallesonnn/inlaudo}:${DOCKER_TAG:-latest}
+    image: ${DOCKER_IMAGE:-wallesonnn/inlaudo:latest}
     container_name: inlaudo-web
     restart: unless-stopped
+    environment:
+      VITE_SUPABASE_URL: ${VITE_SUPABASE_URL}
+      VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY}
     expose:
       - "80"
     labels:
