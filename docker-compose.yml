@@ -1,7 +1,17 @@
 services:
   inlaudo-web:
-    image: ${DOCKER_IMAGE:-wallesonnn/inlaudo}:latest
+    image: ${DOCKER_IMAGE:-wallesonnn/inlaudo}:${DOCKER_TAG:-latest}
     container_name: inlaudo-web
     restart: unless-stopped
-    ports:
-      - "8080:80"
+    expose:
+      - "80"
+    labels:
+      - "app=inlaudo"
+      - "domain=inlaudo.pro"
+      - "service=inlaudo-web"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
