@@ -10,8 +10,8 @@ services:
       - "domain=inlaudo.pro"
       - "service=inlaudo-web"
     networks:
-      - proxy
+      - web
 
 networks:
-  proxy:
+  web:
     external: true
