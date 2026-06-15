@@ -9,6 +9,13 @@ services:
       - "app=inlaudo"
       - "domain=inlaudo.pro"
       - "service=inlaudo-web"
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.inlaudo.rule=Host(`inlaudo.pro`)"
+      - "traefik.http.routers.inlaudo.entrypoints=websecure"
+      - "traefik.http.routers.inlaudo.tls=true"
+      - "traefik.http.routers.inlaudo.tls.certresolver=lets-encrypt"
+      - "traefik.http.services.inlaudo.loadbalancer.server.port=80"
     networks:
       - web
 
