@@ -10,6 +10,10 @@ A imagem publicada no Docker Hub é:
 wallesonnn/inlaudo
 ```
 
+## Configuração em runtime
+
+A aplicação agora lê as credenciais do Supabase em runtime, usando variáveis de ambiente do container no Portainer. Isso permite trocar `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` sem rebuildar a imagem.
+
 ## Tags publicadas
 
 A primeira versão validada foi:
@@ -29,13 +33,16 @@ services:
     image: wallesonnn/inlaudo:v0.0.1
     container_name: inlaudo-web
     restart: unless-stopped
+    environment:
+      VITE_SUPABASE_URL: https://ajggojpmtckfbgujwsbe.supabase.co
+      VITE_SUPABASE_ANON_KEY: sua_anon_key_do_supabase
     expose:
       - "80"
     networks:
-      - proxy
+      - web
 
 networks:
-  proxy:
+  web:
     external: true
 ```
 
@@ -77,7 +84,7 @@ Se a rede do seu proxy tiver outro nome, altere o trecho:
 
 ```yaml
 networks:
-  proxy:
+  web:
     external: true
 ```
 
@@ -99,6 +106,8 @@ Redirect URLs:
 https://inlaudo.pro/*
 https://www.inlaudo.pro/*
 ```
+
+No login, o frontend também executa um `upsert` automático em `inlaudo-profiles`, criando a linha do usuário se ela ainda não existir.
 
 ## Atualização de versão
 
